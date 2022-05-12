@@ -21,7 +21,12 @@ export default {
   data() {
     return {
       idCanvas: "idCanvas",
-
+      patternsUrl: [
+        {
+          url: "https://i.pinimg.com/originals/8d/21/02/8d21029edf1e80eaef5da189529b7b95.jpg",
+          alt: "cats-pattern",
+        },
+      ],
       shapes: [
         {
           type: "Circle",
