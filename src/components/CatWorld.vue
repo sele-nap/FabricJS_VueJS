@@ -136,6 +136,10 @@ export default {
         child.createRec(canvas);
       }
     },
+    exportCanvas() {
+      const child = this.$refs.canvas;
+      child.exportCanvas();
+    },
   },
   mounted() {
     this.init();
