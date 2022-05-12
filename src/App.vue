@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="container">
     <div class="d-flex flex-column gap-2">
-      <CatWorld ref="canvas" />
+      <WorldCat ref="canvas" />
     </div>
     <div class="d-flex gap-3">
       <PatternList @change-bg="changeBg($event)" :patternsUrl="patternsUrl" />
@@ -11,14 +11,14 @@
 </template>
 
 <script>
-import CatWorld from "./components/CatWorld.vue";
+import WorldCat from "./components/WorldCat.vue";
 import PatternList from "./components/PatternList.vue";
 import ButtonsList from "./components/ButtonsList.vue";
 
 export default {
   name: "App",
   components: {
-    CatWorld,
+    WorldCat,
     PatternList,
     ButtonsList,
   },
@@ -26,27 +26,15 @@ export default {
     return {
       patternsUrl: [
         {
-          url: "https://cdn.pixabay.com/photo/2020/12/06/16/16/cosmos-5809271_960_720.png",
-          alt: "cosmos-pattern",
-        },
-        {
-          url: "https://cdn.pixabay.com/photo/2020/12/12/17/49/roses-5826128_960_720.jpg",
-          alt: "roses-pattern",
-        },
-        {
-          url: "https://cdn.pixabay.com/photo/2021/01/25/22/45/leaves-5949884__340.png",
-          alt: "leaf-pattern",
-        },
-        {
-          url: "https://cdn.pixabay.com/photo/2018/04/06/15/17/pattern-3296033__340.png",
-          alt: "pattern-fish",
+          url: "https://i.pinimg.com/originals/8d/21/02/8d21029edf1e80eaef5da189529b7b95.jpg",
+          alt: "cats-pattern",
         },
       ],
       shapes: [
         {
           type: "Circle",
           icon: "circle-fill",
-          fill: "Orange",
+          fill: "Purple",
           originX: "center",
           originY: "center",
           radius: 50,
@@ -55,7 +43,7 @@ export default {
         {
           type: "Rectangle",
           icon: "square-fill",
-          fill: "green",
+          fill: "yellow",
           originX: "center",
           originY: "center",
           height: 100,
