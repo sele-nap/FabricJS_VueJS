@@ -1,64 +1,21 @@
 <template>
-  <div class="container lg m-auto flex justify-center">
-    <div class="canvas">
-      <canvas v-bind:id="idCanvas"></canvas>
-      <button class="rounded-full outline outline-offset-0 outline-pink-500">
-        <ButtonsList @add-shape="createShape($event)" :shapes="shapes" />
-      </button>
-    </div>
-  </div>
+  <canvas :id="canvasId"></canvas>
 </template>
 
 <script>
+import CanvasInit from "../../assets/js/CanvasInit.js";
 import { fabric } from "fabric";
-import ButtonsList from "./ButtonsList.vue";
+import { saveAs } from "file-saver";
 
 export default {
-  name: "CatWorld",
-  components: {
-    ButtonsList,
-  },
+  name: "CanvasEditing",
   data() {
-    return {
-      idCanvas: "idCanvas",
-      patternsUrl: [
-        {
-          url: "https://i.pinimg.com/originals/8d/21/02/8d21029edf1e80eaef5da189529b7b95.jpg",
-          alt: "cats-pattern",
-        },
-      ],
-      shapes: [
-        {
-          type: "Circle",
-          icon: "circle-fill",
-          fill: "Purple",
-          originX: "center",
-          originY: "center",
-          radius: 50,
-          selectedFill: "gold",
-        },
-        {
-          type: "Rectangle",
-          icon: "square-fill",
-          fill: "Yellow",
-          originX: "center",
-          originY: "center",
-          height: 100,
-          width: 100,
-          selectedFill: "gold",
-        },
-      ],
-    };
+    return { canvasId: "mycanvas", canvas: undefined };
   },
-
   methods: {
     init() {
-      return new fabric.Canvas(this.idCanvas, {
-        width: 500,
-        height: 500,
-        selection: false,
-        backgroundColor: "MediumPurple",
-      });
+      let newCanvas = new CanvasInit(this.canvasId);
+      this.canvas = newCanvas.initialiaze();
     },
     setCanvasColor(url, canvas) {
       canvas.setBackgroundColor({ source: url, repeat: "repeat" }, function () {
@@ -66,11 +23,11 @@ export default {
       });
     },
     createCir(canvas) {
-      const canvasCenter = canvas.getCenter();
+      const canvCenter = canvas.getCenter();
       const circle = new fabric.Circle({
         radius: 50,
         fill: "orange",
-        left: canvasCenter.left,
+        left: canvCenter.left,
         top: -50,
         originX: "center",
         originY: "center",
@@ -82,7 +39,7 @@ export default {
       circle.animate("top", canvas.height - 50, {
         onChange: canvas.renderAll.bind(canvas),
         onComplete: () => {
-          circle.animate("top", canvasCenter.top, {
+          circle.animate("top", canvCenter.top, {
             onChange: canvas.renderAll.bind(canvas),
             duration: 200,
             easing: fabric.util.ease.easeOutBounce,
@@ -99,12 +56,12 @@ export default {
       });
     },
     createRec(canvas) {
-      const canvasCenter = canvas.getCenter();
+      const canvCenter = canvas.getCenter();
       const rect = new fabric.Rect({
         height: 100,
         width: 100,
         fill: "green",
-        left: canvasCenter.left,
+        left: canvCenter.left,
         top: -50,
         originX: "center",
         originY: "center",
@@ -113,7 +70,7 @@ export default {
       });
       canvas.add(rect);
       canvas.renderAll();
-      rect.animate("top", canvasCenter.top, {
+      rect.animate("top", canvCenter.top, {
         onChange: canvas.renderAll.bind(canvas),
       });
       rect.on("selected", () => {
@@ -125,32 +82,42 @@ export default {
         canvas.renderAll();
       });
     },
-    changeBg(event) {
-      const child = this.$refs.canvas;
-      const canvas = child._data.canvas;
-      const pattern = event.target.dataset.key;
-      child.setCanvasColor(pattern, canvas);
+    addImageCanvas() {
+      const reader = new FileReader();
+      reader.addEventListener("load", () => {
+        fabric.Image.fromURL(
+          reader.result,
+          (img) => {
+            const canvCenter = this.canvas.getCenter();
+            img.left = canvCenter.left;
+            (img.originX = "center"), (img.scaleX = 0.5);
+            img.scaleY = 0.5;
+            this.canvas.add(img);
+            this.canvas.requestRenderAll();
+            img.animate("top", 100, {
+              onChange: this.canvas.renderAll.bind(this.canvas),
+              duration: 1000,
+              easing: fabric.util.ease.easeOutBounce,
+            });
+          },
+          { crossOrigin: "Anonymous" }
+        );
+      });
+
+      const inputImage = document.getElementById("myImage");
+      const file = inputImage.files[0];
+      reader.readAsDataURL(file);
     },
-    createShape(event) {
-      const child = this.$refs.canvas;
-      const canvas = child._data.canvas;
-      if (event.target.dataset.key === "Circle") {
-        child.createCir(canvas);
-      } else if (event.target.dataset.key === "Rectangle") {
-        console.log("hi");
-        child.createRec(canvas);
-      }
-    },
+
     exportCanvas() {
-      const child = this.$refs.canvas;
-      child.exportCanvas();
+      this.canvas.toCanvasElement().toBlob(function (blob) {
+        saveAs(blob, "myimg.png");
+      });
     },
   },
+
   mounted() {
     this.init();
   },
 };
 </script>
-
-<style>
-</style>
