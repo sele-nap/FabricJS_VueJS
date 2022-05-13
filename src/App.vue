@@ -6,11 +6,15 @@
       </div>
       <div class="d-flex gap-3">
         <ButtonsList
-          @add-shape="createShape($event)"
+          @add-="createShape($event)"
           :shapes="shapes"
           class="justify-items-center border-l-4 border-pink-300/100"
         />
-        <PatternList @change-bg="changeBg($event)" :patternsUrl="patternsUrl" />
+        <PatternList
+          @change-bg="changeBg($event)"
+          :patternsUrl="patternsUrl"
+          class="justify-items-center border-l-4 border-pink-300/100"
+        />
       </div>
     </div>
   </div>
@@ -79,6 +83,13 @@ export default {
         child.createRec(canvas);
       }
     },
+
+    // clearCanvas(event) {
+    //   const child = this.$refs.canvas;
+    //   const canvas = child._data.canvas;
+    //   const pattern = event.target.dataset.key;
+    //   child.clearCanvas(pattern, canvas);
+    // },
 
     addImage() {
       const child = this.$refs.canvas;
