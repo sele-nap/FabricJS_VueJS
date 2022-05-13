@@ -11,16 +11,19 @@ export default {
   data() {
     return { canvasId: "mycanvas", canvas: undefined };
   },
+
   methods: {
     init() {
       let newCanvas = new CanvasInit(this.canvasId);
       this.canvas = newCanvas.initialiaze();
     },
+
     setCanvasColor(url, canvas) {
       canvas.setBackgroundColor({ source: url, repeat: "repeat" }, function () {
         canvas.renderAll();
       });
     },
+
     createCir(canvas) {
       const canvCenter = canvas.getCenter();
       const circle = new fabric.Circle({
@@ -54,6 +57,7 @@ export default {
         canvas.requestRenderAll();
       });
     },
+
     createRec(canvas) {
       const canvCenter = canvas.getCenter();
       const rect = new fabric.Rect({
@@ -81,6 +85,7 @@ export default {
         canvas.renderAll();
       });
     },
+
     addImageCanvas() {
       const reader = new FileReader();
       reader.addEventListener("load", () => {

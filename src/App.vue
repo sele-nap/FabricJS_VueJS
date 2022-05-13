@@ -6,6 +6,7 @@
     <div class="d-flex gap-3">
       <PatternList @change-bg="changeBg($event)" :patternsUrl="patternsUrl" />
       <ButtonsList @add-shape="createShape($event)" :shapes="shapes" />
+      <ClearCanvas @clear-canvas="clearCanvas($event)" />
     </div>
   </div>
 </template>
@@ -14,6 +15,7 @@
 import WorldCat from "./components/WorldCat.vue";
 import PatternList from "./components/PatternList.vue";
 import ButtonsList from "./components/ButtonsList.vue";
+import ClearCanvas from "./components/ClearCanvas.vue";
 
 export default {
   name: "App",
@@ -21,6 +23,7 @@ export default {
     WorldCat,
     PatternList,
     ButtonsList,
+    ClearCanvas,
   },
   data() {
     return {
