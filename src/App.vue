@@ -70,14 +70,15 @@ export default {
         child.createRec(canvas);
       }
     },
-    exportCanvas() {
-      const child = this.$refs.canvas;
-      child.exportCanvas();
-    },
+
     addImage() {
       const child = this.$refs.canvas;
       child.addImageCanvas();
     },
+  },
+  mounted() {
+    this.canvasComponent = this.$refs.canvas;
+    this.canvas = this.$refs.canvas._data.canvas;
   },
 };
 </script>
@@ -88,7 +89,7 @@ body {
   box-sizing: border-box;
 }
 .containers {
-  background-color: rgb(144, 206, 185);
+  background-color: rgb(230, 230, 250);
   width: fit-content;
 }
 

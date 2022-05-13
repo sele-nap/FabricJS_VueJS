@@ -3,12 +3,11 @@
 </template>
 
 <script>
-import CanvasInit from "../../assets/js/CanvasInit.js";
+import CanvasInit from "../../public/js/CanvasInit";
 import { fabric } from "fabric";
-import { saveAs } from "file-saver";
 
 export default {
-  name: "CanvasEditing",
+  name: "WorldCat",
   data() {
     return { canvasId: "mycanvas", canvas: undefined };
   },
@@ -26,7 +25,7 @@ export default {
       const canvCenter = canvas.getCenter();
       const circle = new fabric.Circle({
         radius: 50,
-        fill: "orange",
+        fill: "MediumPurple",
         left: canvCenter.left,
         top: -50,
         originX: "center",
@@ -47,11 +46,11 @@ export default {
         },
       });
       circle.on("selected", () => {
-        circle.set("fill", "gold");
+        circle.set("fill", "LightGoldenRodYellow");
         canvas.requestRenderAll();
       });
       circle.on("deselected", () => {
-        circle.set("fill", "orange");
+        circle.set("fill", "MediumAquaMarine");
         canvas.requestRenderAll();
       });
     },
@@ -60,7 +59,7 @@ export default {
       const rect = new fabric.Rect({
         height: 100,
         width: 100,
-        fill: "green",
+        fill: "PowderBlue",
         left: canvCenter.left,
         top: -50,
         originX: "center",
@@ -78,7 +77,7 @@ export default {
         canvas.renderAll();
       });
       rect.on("deselected", () => {
-        rect.set("fill", "green");
+        rect.set("fill", "LightCoral");
         canvas.renderAll();
       });
     },
@@ -107,12 +106,6 @@ export default {
       const inputImage = document.getElementById("myImage");
       const file = inputImage.files[0];
       reader.readAsDataURL(file);
-    },
-
-    exportCanvas() {
-      this.canvas.toCanvasElement().toBlob(function (blob) {
-        saveAs(blob, "myimg.png");
-      });
     },
   },
 
