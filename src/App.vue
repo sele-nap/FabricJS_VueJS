@@ -1,12 +1,17 @@
 <template>
-  <div id="app" class="container">
-    <div class="d-flex flex-column gap-2">
-      <WorldCat ref="canvas" />
-    </div>
-    <div class="d-flex gap-3">
-      <PatternList @change-bg="changeBg($event)" :patternsUrl="patternsUrl" />
-      <ButtonsList @add-shape="createShape($event)" :shapes="shapes" />
-      <ClearCanvas @clear-canvas="clearCanvas($event)" />
+  <div class="flex justify-center space-x-9 mt-9">
+    <div id="app" class="container">
+      <div class="d-flex flex-column gap-2">
+        <WorldCat ref="canvas" />
+      </div>
+      <div class="d-flex gap-3">
+        <ButtonsList
+          @add-shape="createShape($event)"
+          :shapes="shapes"
+          class="justify-items-center border-l-4 border-pink-300/100"
+        />
+        <PatternList @change-bg="changeBg($event)" :patternsUrl="patternsUrl" />
+      </div>
     </div>
   </div>
 </template>
@@ -15,7 +20,6 @@
 import WorldCat from "./components/WorldCat.vue";
 import PatternList from "./components/PatternList.vue";
 import ButtonsList from "./components/ButtonsList.vue";
-import ClearCanvas from "./components/ClearCanvas.vue";
 
 export default {
   name: "App",
@@ -23,7 +27,6 @@ export default {
     WorldCat,
     PatternList,
     ButtonsList,
-    ClearCanvas,
   },
   data() {
     return {
@@ -52,6 +55,9 @@ export default {
           height: 100,
           width: 100,
           selectedFill: "gold",
+        },
+        {
+          type: "Clear",
         },
       ],
     };
@@ -90,6 +96,7 @@ export default {
 body {
   margin: 0;
   box-sizing: border-box;
+  font-style: Noto;
 }
 .containers {
   background-color: rgb(230, 230, 250);

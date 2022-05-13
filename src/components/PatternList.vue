@@ -1,5 +1,5 @@
 <template>
-  <div class="containers mt-3 p-3 rounded">
+  <div class="containers mt-3 p-3 rounded lg m-auto flex justify-center">
     <h3>Patterns</h3>
     <div class="d-flex gap-2">
       <div :key="pattern.url" v-for="pattern in patternsUrl">
@@ -26,4 +26,7 @@ export default {
 };
 </script>
 <style>
+body {
+  font-style: Noto;
+}
 </style>

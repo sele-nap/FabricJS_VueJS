@@ -1,6 +1,6 @@
 <template>
-  <div class="containers mt-3 p-3 rounded">
-    <h3>Objects</h3>
+  <div class="containers mt-3 p-3 rounded flex justify-center space-x-9">
+    <h3 class="underline underline-offset-2 pb-3">Objects</h3>
     <div>
       <div :key="shape.url" v-for="shape in shapes">
         <ButtonsEverywhere
@@ -25,4 +25,8 @@ export default {
   },
 };
 </script>
-<style></style>
+<style>
+body {
+  font-style: Noto;
+}
+</style>

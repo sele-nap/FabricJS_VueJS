@@ -1,5 +1,9 @@
 <template>
-  <b-button pill variant="info" @click="$emit('add-shape', $event)"
+  <b-button
+    pill
+    variant="info"
+    @click="$emit('add-shape', $event)"
+    class="cursor-pointer"
     ><b-icon :icon="shape.icon"></b-icon> {{ shape.type }}</b-button
   >
 </template>
@@ -14,5 +18,8 @@ export default {
 <style scoped>
 b-button {
   color: "white";
+}
+body {
+  font-style: Noto;
 }
 </style>
