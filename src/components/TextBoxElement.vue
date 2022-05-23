@@ -4,7 +4,7 @@
     <button
       pill
       variant="info"
-      class="text-light me-2"
+      class="text-zinc-900 me-2"
       @click="$emit('add-text')"
     >
       <button icon="textarea-t"></button>
@@ -12,7 +12,7 @@
     <button
       pill
       variant="info"
-      class="text-light me-2"
+      class="text-zinc-900 me-2"
       @click="$emit('bolder')"
     >
       <button icon="type-bold"></button>
@@ -20,27 +20,26 @@
     <button
       pill
       variant="info"
-      class="text-light me-2"
+      class="text-zinc-900 me-2"
       @click="$emit('italic')"
     >
       <button icon="type-italic"></button>
     </button>
-    <select
+    <t-select
       v-model="selectedSize"
       :options="sizeOptions"
       class="my-2 me-2"
       @change="$emit('change-size', $event)"
     >
-      Size
-    </select>
-    <select
+    </t-select>
+
+    <t-select
       v-model="selectedFont"
       :options="fontOptions"
       class="my-2"
       @change="$emit('change-font', $event)"
     >
-      Font
-    </select>
+    </t-select>
   </div>
 </template>
 <script>
