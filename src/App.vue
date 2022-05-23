@@ -15,6 +15,14 @@
           :patternsUrl="patternsUrl"
           class="justify-items-center border-l-4 border-pink-300/100"
         />
+        <ImageImport @add-image="addImage" />
+        <TextBoxElement
+          @add-text="addText"
+          @bolder="bolder"
+          @italic="italic"
+          @change-font="changeFont($event)"
+          @change-size="changeSize($event)"
+        />
       </div>
     </div>
   </div>
@@ -24,6 +32,8 @@
 import WorldCat from "./components/WorldCat.vue";
 import PatternList from "./components/PatternList.vue";
 import ButtonsList from "./components/ButtonsList.vue";
+import ImageImport from "./components/ImageImport.vue";
+import TextBoxElement from "./components/TextBoxElement.vue";
 
 export default {
   name: "App",
@@ -31,6 +41,8 @@ export default {
     WorldCat,
     PatternList,
     ButtonsList,
+    ImageImport,
+    TextBoxElement,
   },
   data() {
     return {
@@ -38,6 +50,11 @@ export default {
         {
           url: "https://i.pinimg.com/originals/8d/21/02/8d21029edf1e80eaef5da189529b7b95.jpg",
           alt: "cats-pattern",
+        },
+
+        {
+          url: "https://wallpapercave.com/wp/wp5439093.jpg",
+          alt: "cat-pattern",
         },
       ],
       shapes: [
@@ -61,39 +78,46 @@ export default {
           selectedFill: "gold",
         },
         {
-          type: "Clear",
+          // type: "Clear",
         },
       ],
+      canvasComponent: undefined,
+      canvas: undefined,
     };
   },
   methods: {
     changeBg(event) {
-      const child = this.$refs.canvas;
-      const canvas = child._data.canvas;
       const pattern = event.target.dataset.key;
-      child.setCanvasColor(pattern, canvas);
+      this.canvasComponent.setCanvasColor(pattern, this.canvas);
     },
     createShape(event) {
-      const child = this.$refs.canvas;
-      const canvas = child._data.canvas;
       if (event.target.dataset.key === "Circle") {
-        child.createCir(canvas);
+        this.canvasComponent.createCir(this.canvas);
       } else if (event.target.dataset.key === "Rectangle") {
         console.log("hi");
-        child.createRec(canvas);
+        this.canvasComponent.createRec(this.canvas);
       }
     },
-
-    // clearCanvas(event) {
-    //   const child = this.$refs.canvas;
-    //   const canvas = child._data.canvas;
-    //   const pattern = event.target.dataset.key;
-    //   child.clearCanvas(pattern, canvas);
-    // },
-
+    exportCanvas() {
+      this.canvasComponent.exportCanvas();
+    },
     addImage() {
-      const child = this.$refs.canvas;
-      child.addImageCanvas();
+      this.canvasComponent.addImageCanvas();
+    },
+    addText() {
+      this.canvasComponent.addText();
+    },
+    bolder() {
+      this.canvasComponent.bolder();
+    },
+    italic() {
+      this.canvasComponent.italic();
+    },
+    changeFont(event) {
+      this.canvasComponent.changeFont(event);
+    },
+    changeSize(event) {
+      this.canvasComponent.changeSize(event);
     },
   },
   mounted() {

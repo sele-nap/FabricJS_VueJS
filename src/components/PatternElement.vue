@@ -17,3 +17,11 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.pattern {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+</style>

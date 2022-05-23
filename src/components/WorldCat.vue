@@ -5,6 +5,7 @@
 <script>
 import CanvasInit from "../../public/js/CanvasInit";
 import { fabric } from "fabric";
+import { saveAs } from "file-saver";
 
 export default {
   name: "WorldCat",
@@ -86,13 +87,13 @@ export default {
       });
     },
 
-    clearCanvas(canvas) {
-      canvas.getObjects().forEach((o) => {
-        if (o !== canvas.backgroundImage) {
-          canvas.remove(o);
-        }
-      });
-    },
+    // clearCanvas(canvas) {
+    //   canvas.getObjects().forEach((o) => {
+    //     if (o !== canvas.backgroundImage) {
+    //       canvas.remove(o);
+    //     }
+    //   });
+    // },
 
     addImageCanvas() {
       const reader = new FileReader();
@@ -119,6 +120,60 @@ export default {
       const inputImage = document.getElementById("myImage");
       const file = inputImage.files[0];
       reader.readAsDataURL(file);
+    },
+
+    addText() {
+      const textBox = new fabric.Textbox("Text here", {
+        editable: true,
+        fontSize: 24,
+      });
+      this.canvas.add(textBox);
+      this.canvas.requestRenderAll();
+    },
+    bolder() {
+      this.canvas.getActiveObjects().filter(function (o) {
+        if (o.get("type") === "textbox") {
+          if (o.fontWeight === "bold") {
+            o.fontWeight = "normal";
+          } else if (o.fontWeight === "normal") {
+            o.fontWeight = "bold";
+          }
+        }
+      });
+      this.canvas.requestRenderAll();
+    },
+    italic() {
+      this.canvas.getActiveObjects().filter(function (o) {
+        if (o.get("type") === "textbox") {
+          if (o.fontStyle === "normal") {
+            o.fontStyle = "italic";
+          } else if (o.fontStyle === "italic") {
+            o.fontStyle = "normal";
+          }
+        }
+      });
+      this.canvas.renderAll();
+    },
+    changeFont(event) {
+      this.canvas.getActiveObjects().filter(function (o) {
+        if (o.get("type") === "textbox") {
+          o.fontFamily = event;
+        }
+      });
+      this.canvas.renderAll();
+    },
+    changeSize(event) {
+      this.canvas.getActiveObjects().filter(function (o) {
+        if (o.get("type") === "textbox") {
+          o.fontSize = event;
+        }
+      });
+      this.canvas.renderAll();
+    },
+    exportCanvas() {
+      this.canvas.toCanvasElement().toBlob(function (blob) {
+        saveAs(blob, "myimg.png");
+      });
     },
   },
 
