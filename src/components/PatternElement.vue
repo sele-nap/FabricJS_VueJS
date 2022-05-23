@@ -1,12 +1,10 @@
 <template>
-  <div>
-    <img
-      :src="pattern.url"
-      class="pattern"
-      :alt="pattern.alt"
-      @click="$emit('pattern-click', $event)"
-    />
-  </div>
+  <img
+    :src="pattern.url"
+    class="pattern"
+    :alt="pattern.alt"
+    @click="$emit('pattern-click', $event)"
+  />
 </template>
 <script>
 export default {

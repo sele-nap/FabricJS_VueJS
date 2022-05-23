@@ -139,7 +139,7 @@ body {
   margin: 0;
   box-sizing: border-box;
   font-style: Noto;
-  background-color: black;
+  background-color: lightgrey;
 }
 .containers {
   background-color: rgb(230, 230, 250);

@@ -26,7 +26,4 @@ export default {
 };
 </script>
 <style>
-body {
-  font-style: Noto;
-}
 </style>
