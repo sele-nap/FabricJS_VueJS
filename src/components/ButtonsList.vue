@@ -1,32 +1,28 @@
 <template>
-  <div class="containers mt-3 p-3 rounded flex justify-center space-x-9">
-    <h3 class="underline underline-offset-2 pb-3">Objects</h3>
-    <div>
-      <div :key="shape.url" v-for="shape in shapes">
-        <ButtonsEverywhere
-          :data-key="shape.type"
-          :shape="shape"
-          @add-shape="$emit('add-shape', $event)"
+  <div class="containers mt-3 p-3 rounded">
+    <h3>Objects</h3>
+    <div class="d-flex gap-2">
+      <div :key="button.url" v-for="button in buttons">
+        <ButtonsElement
+          :data-key="button.type"
+          :button="button"
+          @add-buttons="$emit('add-button', $event)"
         />
       </div>
     </div>
-    <div></div>
+    <div class="d-flex gap-2"></div>
   </div>
 </template>
 <script>
-import ButtonsEverywhere from "./ButtonsEverywhere.vue";
+import ButtonsElement from "./ButtonsElement.vue";
 export default {
   name: "ButtonsList",
   components: {
-    ButtonsEverywhere,
+    ButtonsElement,
   },
   props: {
-    shapes: Array,
+    buttons: Array,
   },
 };
 </script>
-<style>
-body {
-  font-style: Noto;
-}
-</style>
+<style scoped></style>

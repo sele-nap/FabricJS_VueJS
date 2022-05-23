@@ -5,11 +5,8 @@
         <WorldCat ref="canvas" />
       </div>
       <div class="d-flex gap-3">
-        <ButtonsList
-          @add-="createShape($event)"
-          :shapes="shapes"
-          class="justify-items-center border-l-4 border-pink-300/100"
-        />
+        <ButtonsExport @export-canvas="exportCanvas()" />
+        <ButtonsList @add-button="createButton($event)" :buttons="buttons" />
         <PatternList
           @change-bg="changeBg($event)"
           :patternsUrl="patternsUrl"
@@ -31,6 +28,7 @@
 <script>
 import WorldCat from "./components/WorldCat.vue";
 import PatternList from "./components/PatternList.vue";
+import ButtonsExport from "./components/ButtonsExport.vue";
 import ButtonsList from "./components/ButtonsList.vue";
 import ImageImport from "./components/ImageImport.vue";
 import TextBoxElement from "./components/TextBoxElement.vue";
@@ -40,6 +38,7 @@ export default {
   components: {
     WorldCat,
     PatternList,
+    ButtonsExport,
     ButtonsList,
     ImageImport,
     TextBoxElement,
@@ -57,7 +56,7 @@ export default {
           alt: "cat-pattern",
         },
       ],
-      shapes: [
+      buttons: [
         {
           type: "Circle",
           icon: "circle-fill",
@@ -90,11 +89,10 @@ export default {
       const pattern = event.target.dataset.key;
       this.canvasComponent.setCanvasColor(pattern, this.canvas);
     },
-    createShape(event) {
+    createButton(event) {
       if (event.target.dataset.key === "Circle") {
         this.canvasComponent.createCir(this.canvas);
       } else if (event.target.dataset.key === "Rectangle") {
-        console.log("hi");
         this.canvasComponent.createRec(this.canvas);
       }
     },
