@@ -1,11 +1,12 @@
 <template>
-  <b-button
+  <button
     pill
     variant="info"
-    class="text-light exportBtn align-self-end"
+    class="text-zinc-900 exportBtn self-end"
     @click="$emit('export-canvas')"
-    >Export canvas</b-button
   >
+    Export canvas
+  </button>
 </template>
 
 <script>

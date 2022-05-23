@@ -5,20 +5,31 @@
         <WorldCat ref="canvas" />
       </div>
       <div class="d-flex gap-3">
-        <ButtonsExport @export-canvas="exportCanvas()" />
-        <ButtonsList @add-button="createButton($event)" :buttons="buttons" />
+        <ButtonsExport
+          @export-canvas="exportCanvas()"
+          class="justify-items-center border-l-4 border-pink-300/100"
+        />
+        <ButtonsList
+          @add-button="createButton($event)"
+          :buttons="buttons"
+          class="justify-items-center border-l-4 border-pink-300/100"
+        />
         <PatternList
           @change-bg="changeBg($event)"
           :patternsUrl="patternsUrl"
           class="justify-items-center border-l-4 border-pink-300/100"
         />
-        <ImageImport @add-image="addImage" />
+        <ImageImport
+          @add-image="addImage"
+          class="justify-items-center border-l-4 border-pink-300/100"
+        />
         <TextBoxElement
           @add-text="addText"
           @bolder="bolder"
           @italic="italic"
           @change-font="changeFont($event)"
           @change-size="changeSize($event)"
+          class="justify-items-center border-l-4 border-pink-300/100"
         />
       </div>
     </div>
@@ -76,9 +87,7 @@ export default {
           width: 100,
           selectedFill: "gold",
         },
-        {
-          // type: "Clear",
-        },
+        {},
       ],
       canvasComponent: undefined,
       canvas: undefined,

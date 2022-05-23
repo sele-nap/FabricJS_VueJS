@@ -87,14 +87,6 @@ export default {
       });
     },
 
-    // clearCanvas(canvas) {
-    //   canvas.getObjects().forEach((o) => {
-    //     if (o !== canvas.backgroundImage) {
-    //       canvas.remove(o);
-    //     }
-    //   });
-    // },
-
     addImageCanvas() {
       const reader = new FileReader();
       reader.addEventListener("load", () => {

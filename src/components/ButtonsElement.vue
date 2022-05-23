@@ -1,11 +1,12 @@
 <template>
-  <b-button
+  <button
     pill
     variant="info"
-    class="text-light"
+    class="text-zinc-900"
     @click="$emit('add-button', $event)"
-    ><b-icon :icon="button.icon"></b-icon> {{ button.type }}</b-button
   >
+    <button :icon="button.icon"></button> {{ button.type }}
+  </button>
 </template>
 <script>
 export default {
@@ -16,7 +17,7 @@ export default {
 };
 </script>
 <style scoped>
-b-button {
+button {
   color: "purple";
 }
 </style>
