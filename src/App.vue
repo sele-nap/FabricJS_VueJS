@@ -1,37 +1,35 @@
 <template>
-  <div class="flex justify-center space-x-9 mt-9">
-    <div id="app" class="container">
-      <div class="d-flex flex-column gap-2">
-        <WorldCat ref="canvas" />
-      </div>
-      <div class="d-flex gap-3">
-        <ButtonsExport
-          @export-canvas="exportCanvas()"
-          class="justify-items-center border-l-4 border-pink-300/100"
-        />
-        <ButtonsList
-          @add-button="createButton($event)"
-          :buttons="buttons"
-          class="justify-items-center border-l-4 border-pink-300/100"
-        />
-        <PatternList
-          @change-bg="changeBg($event)"
-          :patternsUrl="patternsUrl"
-          class="justify-items-center border-l-4 border-pink-300/100"
-        />
-        <ImageImport
-          @add-image="addImage"
-          class="justify-items-center border-l-4 border-pink-300/100"
-        />
-        <TextBoxElement
-          @add-text="addText"
-          @bolder="bolder"
-          @italic="italic"
-          @change-font="changeFont($event)"
-          @change-size="changeSize($event)"
-          class="justify-items-center border-l-4 border-pink-300/100"
-        />
-      </div>
+  <div id="app" class="container flex justify-center space-x-9">
+    <div class="d-flex flex-row gap-2 mt-5 ml-5">
+      <WorldCat ref="canvas" />
+    </div>
+    <div class="d-flex gap-3 mt-5">
+      <ButtonsExport
+        @export-canvas="exportCanvas()"
+        class="justify-items-center border-l-4 border-pink-300/100"
+      />
+      <ButtonsList
+        @add-buttons="createButton($event)"
+        :buttons="buttons"
+        class="justify-items-center border-l-4 border-pink-300/100"
+      />
+      <PatternList
+        @change-bg="changeBg($event)"
+        :patternsUrl="patternsUrl"
+        class="justify-items-center border-l-4 border-pink-300/100"
+      />
+      <ImageImport
+        @add-image="addImage"
+        class="justify-items-center border-l-4 border-pink-300/100"
+      />
+      <TextBoxElement
+        @add-text="addText"
+        @bolder="bolder"
+        @italic="italic"
+        @change-font="changeFont($event)"
+        @change-size="changeSize($event)"
+        class="justify-items-center border-l-4 border-pink-300/100"
+      />
     </div>
   </div>
 </template>
@@ -139,6 +137,7 @@ body {
   margin: 0;
   box-sizing: border-box;
   font-style: Noto;
+  background-color: black;
 }
 .containers {
   background-color: rgb(230, 230, 250);

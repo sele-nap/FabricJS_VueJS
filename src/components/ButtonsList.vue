@@ -6,7 +6,7 @@
         <ButtonsElement
           :data-key="button.type"
           :button="button"
-          @add-buttons="$emit('add-button', $event)"
+          @add-buttons="$emit('add-buttons', $event)"
         />
       </div>
     </div>

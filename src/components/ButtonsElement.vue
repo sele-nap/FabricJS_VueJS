@@ -3,7 +3,7 @@
     pill
     variant="info"
     class="text-zinc-900"
-    @click="$emit('add-button', $event)"
+    @click="$emit('add-buttons', $event)"
   >
     <button :icon="button.icon"></button> {{ button.type }}
   </button>
