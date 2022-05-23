@@ -22,7 +22,7 @@ export default {
     setCanvasColor(url, canvas) {
       canvas.setBackgroundColor({ source: url, repeat: "repeat" }, function () {
         canvas.renderAll();
-      });
+      }, {crossOrigin: "Anonymous"});
     },
 
     createCir(canvas) {
