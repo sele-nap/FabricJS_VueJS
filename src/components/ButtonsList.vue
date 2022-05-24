@@ -7,6 +7,14 @@
           :data-key="button.type"
           :button="button"
           @add-buttons="$emit('add-buttons', $event)"
+          class="
+            bg-indigo-500
+            hover:bg-indigo-700
+            text-white
+            py-2
+            px-4
+            rounded-tr-lg
+          "
         />
       </div>
     </div>
@@ -24,4 +32,3 @@ export default {
   },
 };
 </script>
-<style scoped></style>

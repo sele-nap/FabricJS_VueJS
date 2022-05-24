@@ -83,7 +83,6 @@ export default {
           width: 100,
           selectedFill: "gold",
         },
-        {},
       ],
       canvasComponent: undefined,
       canvas: undefined,
