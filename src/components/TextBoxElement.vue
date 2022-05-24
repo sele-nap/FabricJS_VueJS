@@ -25,26 +25,31 @@
     >
       <button icon="type-italic"></button>
     </button>
-    <t-select
+    <tail-vue-select
       v-model="selectedSize"
-      :options="sizeOptions"
+      :items="sizeOptions"
       class="my-2 me-2"
       @change="$emit('change-size', $event)"
     >
-    </t-select>
+    </tail-vue-select>
 
-    <t-select
+    <tail-vue-select
       v-model="selectedFont"
-      :options="fontOptions"
+      :items="fontOptions"
       class="my-2"
       @change="$emit('change-font', $event)"
     >
-    </t-select>
+    </tail-vue-select>
   </div>
 </template>
 <script>
+import tailVueSelect from "tailwindcss-vue-select";
+
 export default {
   name: "TextElement",
+  components: {
+    tailVueSelect,
+  },
   data() {
     return {
       selectedFont: null,
