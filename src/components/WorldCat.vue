@@ -20,9 +20,13 @@ export default {
     },
 
     setCanvasColor(url, canvas) {
-      canvas.setBackgroundColor({ source: url, repeat: "repeat" }, function () {
-        canvas.renderAll();
-      }, {crossOrigin: "Anonymous"});
+      canvas.setBackgroundColor(
+        { source: url, repeat: "repeat" },
+        function () {
+          canvas.renderAll();
+        },
+        { crossOrigin: "Anonymous" }
+      );
     },
 
     createCir(canvas) {
@@ -119,7 +123,6 @@ export default {
         editable: true,
         fontSize: 24,
       });
-      console.log("meow");
       this.canvas.add(textBox);
       this.canvas.requestRenderAll();
     },

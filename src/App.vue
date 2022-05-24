@@ -1,26 +1,23 @@
 <template>
   <div id="app" class="container flex justify-center space-x-9">
-    <div class="flex flex-row gap-2 mt-5 ml-5">
+    <div class="flex flex-row gap-2 mt-5 ml-2">
       <WorldCat ref="canvas" />
     </div>
     <div class="d-flex gap-3 mt-5">
-      <ButtonsExport
-        @export-canvas="exportCanvas()"
-        class="justify-items-center border-l-4 border-pink-300/100"
-      />
+      <ButtonsExport @export-canvas="exportCanvas()" />
       <ButtonsList
         @add-buttons="createButton($event)"
         :buttons="buttons"
-        class="justify-items-center border-l-4 border-pink-300/100"
+        class="border-l-4 border-pink-300/100"
       />
       <PatternList
         @change-bg="changeBg($event)"
         :patternsUrl="patternsUrl"
-        class="justify-items-center border-l-4 border-pink-300/100"
+        class="border-l-4 border-pink-300/100"
       />
       <ImageImport
         @add-image="addImage"
-        class="justify-items-center border-l-4 border-pink-300/100"
+        class="border-l-4 border-pink-300/100"
       />
       <TextBoxElement
         @add-text="addText"
@@ -28,7 +25,7 @@
         @italic="italic"
         @change-font="changeFont($event)"
         @change-size="changeSize($event)"
-        class="justify-items-center border-l-4 border-pink-300/100"
+        class="border-l-4 border-pink-300/100"
       />
     </div>
   </div>

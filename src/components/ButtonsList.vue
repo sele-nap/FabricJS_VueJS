@@ -10,7 +10,6 @@
         />
       </div>
     </div>
-    <div class="flex gap-2"></div>
   </div>
 </template>
 <script>

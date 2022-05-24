@@ -5,15 +5,15 @@
       <button
         pill
         variant="info"
-        class="text-zinc-900"
+        class="text-zinc-900 mx-8"
         @click="$emit('add-text')"
       >
-        <i class="fa-solid fa-text-size"></i>
+        <i class="fa-solid fa-t"></i>
       </button>
       <button
         pill
         variant="info"
-        class="text-zinc-900"
+        class="text-zinc-900 mx-8"
         @click="$emit('bolder')"
       >
         <i class="fa-solid fa-bold"></i>
@@ -21,7 +21,7 @@
       <button
         pill
         variant="info"
-        class="text-zinc-900"
+        class="text-zinc-900 mx-8"
         @click="$emit('italic')"
       >
         <i class="fa-solid fa-italic"></i>
@@ -33,7 +33,7 @@
       :items="sizeOptions"
       class="my-2 me-2"
       @change="$emit('change-size', $event)"
-    >
+      >Size
     </tail-vue-select>
 
     <tail-vue-select
@@ -41,7 +41,7 @@
       :items="fontOptions"
       class="my-2"
       @change="$emit('change-font', $event)"
-    >
+      >Font
     </tail-vue-select>
   </div>
 </template>
