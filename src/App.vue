@@ -56,12 +56,12 @@ export default {
     return {
       patternsUrl: [
         {
-          url: "https://i.pinimg.com/originals/8d/21/02/8d21029edf1e80eaef5da189529b7b95.jpg",
+          url: "https://cdn.pixabay.com/photo/2021/03/30/07/31/cat-6136130_960_720.jpg",
           alt: "cats-pattern",
         },
 
         {
-          url: "https://wallpapercave.com/wp/wp5439093.jpg",
+          url: "https://cdn.pixabay.com/photo/2022/05/07/17/39/cat-7180716_960_720.png",
           alt: "cat-pattern",
         },
       ],
