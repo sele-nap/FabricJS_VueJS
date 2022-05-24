@@ -1,30 +1,33 @@
 <template>
   <div class="containers mt-3 p-3 rounded">
     <h3 class="underline underline-offset-2 pb-3">Text</h3>
-    <button
-      pill
-      variant="info"
-      class="text-zinc-900 me-2"
-      @click="$emit('add-text')"
-    >
-      <button icon="textarea-t"></button>
-    </button>
-    <button
-      pill
-      variant="info"
-      class="text-zinc-900 me-2"
-      @click="$emit('bolder')"
-    >
-      <button icon="type-bold"></button>
-    </button>
-    <button
-      pill
-      variant="info"
-      class="text-zinc-900 me-2"
-      @click="$emit('italic')"
-    >
-      <button icon="type-italic"></button>
-    </button>
+    <div class="flex justify-centers">
+      <button
+        pill
+        variant="info"
+        class="text-zinc-900"
+        @click="$emit('add-text')"
+      >
+        <i class="fa-solid fa-text-size"></i>
+      </button>
+      <button
+        pill
+        variant="info"
+        class="text-zinc-900"
+        @click="$emit('bolder')"
+      >
+        <i class="fa-solid fa-bold"></i>
+      </button>
+      <button
+        pill
+        variant="info"
+        class="text-zinc-900"
+        @click="$emit('italic')"
+      >
+        <i class="fa-solid fa-italic"></i>
+      </button>
+    </div>
+
     <tail-vue-select
       v-model="selectedSize"
       :items="sizeOptions"

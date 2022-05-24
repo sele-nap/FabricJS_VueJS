@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="container flex justify-center space-x-9">
-    <div class="d-flex flex-row gap-2 mt-5 ml-5">
+    <div class="flex flex-row gap-2 mt-5 ml-5">
       <WorldCat ref="canvas" />
     </div>
     <div class="d-flex gap-3 mt-5">
@@ -56,12 +56,12 @@ export default {
     return {
       patternsUrl: [
         {
-          url: "https://cdn.pixabay.com/photo/2021/03/30/07/31/cat-6136130_960_720.jpg",
+          url: "https://cdn.pixabay.com/photo/2021/10/10/09/39/art-6696173_960_720.png",
           alt: "cats-pattern",
         },
 
         {
-          url: "https://cdn.pixabay.com/photo/2022/05/07/17/39/cat-7180716_960_720.png",
+          url: "https://cdn.pixabay.com/photo/2016/06/24/15/48/pattern-1477380_960_720.png",
           alt: "cat-pattern",
         },
       ],
