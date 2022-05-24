@@ -1,5 +1,6 @@
 <template>
   <div id="app" class="container flex justify-center space-x-9">
+    <div></div>
     <div class="flex flex-row gap-2 mt-5 ml-2">
       <WorldCat ref="canvas" />
     </div>

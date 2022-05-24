@@ -1,5 +1,5 @@
 <template>
-  <div class="containers mt-3 p-3 rounded">
+  <div>
     <button
       pill
       variant="info"
