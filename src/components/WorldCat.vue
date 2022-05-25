@@ -171,6 +171,35 @@ export default {
         saveAs(blob, "myimg.png");
       });
     },
+
+    clearCanvas(canvas) {
+      canvas.getObjects().forEach((object) => {
+        if (object !== canvas.backgroundImage) {
+          canvas.remove(object);
+        }
+      });
+    },
+    group() {
+      const objects = this.canvas.getObjects();
+      const group = new fabric.Group(objects, { cornerColor: "white" });
+      this.clearCanvas(this.canvas);
+      this.canvas.add(group);
+      this.canvas.requestRenderAll();
+    },
+    ungroup() {
+      const objects = this.canvas.getObjects();
+      objects.filter((o) => {
+        if (o.get("type") === "group") {
+          o.destroy();
+          const oldGroup = o.getObjects();
+          this.clearCanvas(this.canvas);
+          this.canvas.add(...oldGroup);
+        } else {
+          this.canvas.add(o);
+        }
+      });
+      this.canvas.requestRenderAll();
+    },
   },
 
   mounted() {

@@ -28,6 +28,11 @@
         @change-size="changeSize($event)"
         class="border-l-4 border-pink-300/100"
       />
+      <ButtonsComponent
+        @group="group"
+        @ungroup="ungroup"
+        class="border-l-4 border-pink-300/100"
+      />
     </div>
   </div>
 </template>
@@ -39,6 +44,7 @@ import ButtonsExport from "./components/ButtonsExport.vue";
 import ButtonsList from "./components/ButtonsList.vue";
 import ImageImport from "./components/ImageImport.vue";
 import TextBoxElement from "./components/TextBoxElement.vue";
+import ButtonsComponent from "./components/ButtonsComponent.vue";
 
 export default {
   name: "App",
@@ -49,6 +55,7 @@ export default {
     ButtonsList,
     ImageImport,
     TextBoxElement,
+    ButtonsComponent,
   },
   data() {
     return {
@@ -122,6 +129,12 @@ export default {
     changeSize(event) {
       this.canvasComponent.changeSize(event);
       console.log("miaou");
+    },
+    group() {
+      this.canvasComponent.group();
+    },
+    ungroup() {
+      this.canvasComponent.ungroup();
     },
   },
   mounted() {
