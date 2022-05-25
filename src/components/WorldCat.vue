@@ -19,14 +19,19 @@ export default {
       this.canvas = newCanvas.initialiaze();
     },
 
-    setCanvasColor(url, canvas) {
-      canvas.setBackgroundColor(
-        { source: url, repeat: "repeat" },
-        function () {
-          canvas.renderAll();
-        },
-        { crossOrigin: "Anonymous" }
-      );
+    setCanvasPattern(url) {
+      if (url.match(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{8})$/)) {
+        this.canvas.setBackgroundColor(url, () => {
+          this.canvas.renderAll();
+        });
+      } else {
+        this.canvas.setBackgroundColor(
+          { source: url, repeat: "repeat" },
+          () => {
+            this.canvas.renderAll();
+          }
+        );
+      }
     },
 
     createCir(canvas) {
@@ -166,11 +171,6 @@ export default {
       });
       this.canvas.renderAll();
     },
-    exportCanvas() {
-      this.canvas.toCanvasElement().toBlob(function (blob) {
-        saveAs(blob, "myimg.png");
-      });
-    },
 
     clearCanvas(canvas) {
       canvas.getObjects().forEach((object) => {
@@ -199,6 +199,12 @@ export default {
         }
       });
       this.canvas.requestRenderAll();
+    },
+
+    exportCanvas() {
+      this.canvas.toCanvasElement().toBlob(function (blob) {
+        saveAs(blob, "myimg.png");
+      });
     },
   },
 

@@ -33,6 +33,7 @@
         @ungroup="ungroup"
         class="border-l-4 border-pink-300/100"
       />
+      <ColorsPicker @update-color="changeBg($event)" ref="colorPicker" />
     </div>
   </div>
 </template>
@@ -45,6 +46,7 @@ import ButtonsList from "./components/ButtonsList.vue";
 import ImageImport from "./components/ImageImport.vue";
 import TextBoxElement from "./components/TextBoxElement.vue";
 import ButtonsComponent from "./components/ButtonsComponent.vue";
+import ColorsPicker from "./components/ColorsPicker.vue";
 
 export default {
   name: "App",
@@ -56,6 +58,7 @@ export default {
     ImageImport,
     TextBoxElement,
     ButtonsComponent,
+    ColorsPicker,
   },
   data() {
     return {
@@ -136,10 +139,15 @@ export default {
     ungroup() {
       this.canvasComponent.ungroup();
     },
+    updateColor(event) {
+      console.log(event.hsl);
+      console.log(this.colorPicked);
+    },
   },
   mounted() {
     this.canvasComponent = this.$refs.canvas;
     this.canvas = this.$refs.canvas._data.canvas;
+    this.colorPicked = this.$refs.canvas._data.colors;
   },
 };
 </script>
