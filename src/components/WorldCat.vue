@@ -17,22 +17,6 @@ export default {
     init() {
       let newCanvas = new CanvasInit(this.canvasId);
       this.canvas = newCanvas.initialiaze();
-      this.canvas.on("object:moving", () => {
-        let isInstance = false;
-        const selectedObject = this.canvas.getActiveObjects()[0];
-        const canvasSize = this.canvas.getWidth();
-        const objectSize = selectedObject.width;
-        if (selectedObject.left > canvasSize - objectSize / 2) {
-          this.canvas.getObjects().filter((o) => {
-            if (o.type === "instance") {
-              isInstance = true;
-            }
-          });
-          if (!isInstance) {
-            this.cloneObject(selectedObject, 360, 250);
-          }
-        }
-      });
     },
     setCanvasPattern(url) {
       if (url.match(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{8})$/)) {
