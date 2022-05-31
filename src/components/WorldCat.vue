@@ -218,7 +218,7 @@ export default {
 
     exportCanvas() {
       this.canvas.toCanvasElement().toBlob(function (blob) {
-        saveAs(blob, "myimg.png");
+        saveAs(blob, "beautifulImage.png");
       });
     },
 
