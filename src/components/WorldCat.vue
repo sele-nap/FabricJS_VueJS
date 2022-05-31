@@ -221,14 +221,6 @@ export default {
         saveAs(blob, "beautifulImage.png");
       });
     },
-
-    cloneObject(object, top, left) {
-      let obj = fabric.util.object.clone(object);
-      obj.set("top", top);
-      obj.set("left", left);
-      obj.type = "instance";
-      this.canvas.add(obj);
-    },
   },
 
   mounted() {

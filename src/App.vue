@@ -1,10 +1,10 @@
 <template>
   <div id="app" class="container flex justify-center space-x-9">
     <div></div>
-    <div class="flex flex-row gap-2 mt-5 ml-2">
+    <div class="flex flex-col justify-center items-center space-y-4 mt-5 pl-2">
       <WorldCat ref="canvas" />
+      <CanvasModel class="mt-5" :canvas="canvas" ref="editor" />
     </div>
-    <CanvasModel class="mt-5" :canvas="canvas" ref="editor" />
     <div class="d-flex gap-3 mt-5">
       <ButtonsExport @export-canvas="exportCanvas()" />
       <ButtonsList
