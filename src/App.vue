@@ -4,6 +4,7 @@
     <div class="flex flex-row gap-2 mt-5 ml-2">
       <WorldCat ref="canvas" />
     </div>
+    <CanvasModel class="mt-5" :canvas="canvas" ref="editor" />
     <div class="d-flex gap-3 mt-5">
       <ButtonsExport @export-canvas="exportCanvas()" />
       <ButtonsList
@@ -47,6 +48,7 @@ import ImageImport from "./components/ImageImport.vue";
 import TextBoxElement from "./components/TextBoxElement.vue";
 import ButtonsComponent from "./components/ButtonsComponent.vue";
 import ColorsPicker from "./components/ColorsPicker.vue";
+import CanvasModel from "./components/CanvasModel.vue";
 
 export default {
   name: "App",
@@ -59,6 +61,7 @@ export default {
     TextBoxElement,
     ButtonsComponent,
     ColorsPicker,
+    CanvasModel,
   },
   data() {
     return {
@@ -143,6 +146,7 @@ export default {
       console.log(event.hsl);
       console.log(this.colorPicked);
     },
+    getPosition() {},
   },
   mounted() {
     this.canvasComponent = this.$refs.canvas;

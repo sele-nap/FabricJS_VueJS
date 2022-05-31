@@ -34,7 +34,7 @@ export default {
   methods: {
     init() {
       //initialize scene and background
-      const BACKGROUND_COLOR = "pink";
+      const BACKGROUND_COLOR = "thistle";
       this.scene = new THREE.Scene();
       this.scene.background = new THREE.Color(BACKGROUND_COLOR);
 
