@@ -34,7 +34,6 @@ export default {
         }
       });
     },
-
     setCanvasPattern(url) {
       if (url.match(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{8})$/)) {
         this.canvas.setBackgroundColor(url, () => {
@@ -221,6 +220,14 @@ export default {
       this.canvas.toCanvasElement().toBlob(function (blob) {
         saveAs(blob, "myimg.png");
       });
+    },
+
+    cloneObject(object, top, left) {
+      let obj = fabric.util.object.clone(object);
+      obj.set("top", top);
+      obj.set("left", left);
+      obj.type = "instance";
+      this.canvas.add(obj);
     },
   },
 

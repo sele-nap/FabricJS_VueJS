@@ -25,7 +25,7 @@
         hover:bg-indigo-700
         text-white
         py-2
-        px-4
+        px-2
         rounded-tr-lg
       "
       @click="$emit('ungroup')"
