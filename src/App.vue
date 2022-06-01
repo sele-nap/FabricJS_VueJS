@@ -35,8 +35,8 @@
         class="border-l-4 border-pink-300/100"
       />
       <ButtonsDraw
-        @drawing="drawing"
-        @paw="paw"
+        @drawing="toggleMode(modes.drawing)"
+        @paw="toggleMode(modes.paw)"
         class="border-l-4 border-pink-300/100"
       />
       <ColorsPicker @update-color="changeBg($event)" ref="colorPicker" />
@@ -155,11 +155,8 @@ export default {
     },
     updateColor(event) {
       console.log(event.hsl);
-      console.log(this.colorPicked);
     },
     getPosition() {},
-
-    ToggleMode() {},
   },
   mounted() {
     this.canvasComponent = this.$refs.canvas;

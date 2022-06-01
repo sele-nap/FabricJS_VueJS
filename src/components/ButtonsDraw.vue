@@ -14,7 +14,7 @@
       "
       @click="$emit('drawing')"
     >
-      <button></button>Drawing
+      <button>Drawing</button>
     </button>
     <button
       pill
@@ -29,7 +29,7 @@
       "
       @click="$emit('pan')"
     >
-      <button></button>Pan
+      <button>Pan</button>
     </button>
   </div>
 </template>
