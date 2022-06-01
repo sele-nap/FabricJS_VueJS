@@ -12,6 +12,11 @@
         :buttons="buttons"
         class="border-l-4 border-pink-300/100"
       />
+      <!-- <ToggleMode
+        @add-buttons="createButton($event)"
+        :buttons="buttons"
+        class="border-l-4 border-pink-300/100"
+      /> -->
       <PatternList
         @change-bg="changeBg($event)"
         :patternsUrl="patternsUrl"
@@ -49,6 +54,7 @@ import TextBoxElement from "./components/TextBoxElement.vue";
 import ButtonsComponent from "./components/ButtonsComponent.vue";
 import ColorsPicker from "./components/ColorsPicker.vue";
 import CanvasModel from "./components/CanvasModel.vue";
+// import ToggleMode from "./components/ToggleMode.vue";
 
 export default {
   name: "App",
@@ -62,6 +68,7 @@ export default {
     ButtonsComponent,
     ColorsPicker,
     CanvasModel,
+    // ToggleMode,
   },
   data() {
     return {
@@ -103,8 +110,12 @@ export default {
   },
   methods: {
     changeBg(event) {
-      const pattern = event.target.dataset.key;
-      this.canvasComponent.setCanvasColor(pattern, this.canvas);
+      if (event.target) {
+        const pattern = event.target.dataset.key;
+        this.canvasComponent.setCanvasPattern(pattern);
+      } else {
+        this.canvasComponent.setCanvasPattern(event.hex8);
+      }
     },
     createButton(event) {
       if (event.target.dataset.key === "Circle") {
@@ -147,11 +158,14 @@ export default {
       console.log(this.colorPicked);
     },
     getPosition() {},
+
+    ToggleMode() {},
   },
   mounted() {
     this.canvasComponent = this.$refs.canvas;
     this.canvas = this.$refs.canvas._data.canvas;
     this.colorPicked = this.$refs.canvas._data.colors;
+    // this.ToggleMode = this.$ref.canvas._data.canvas;
   },
 };
 </script>

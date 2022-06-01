@@ -18,6 +18,7 @@ export default {
       let newCanvas = new CanvasInit(this.canvasId);
       this.canvas = newCanvas.initialiaze();
     },
+
     setCanvasPattern(url) {
       if (url.match(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{8})$/)) {
         this.canvas.setBackgroundColor(url, () => {
