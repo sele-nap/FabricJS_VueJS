@@ -15,7 +15,7 @@
       "
       @click="$emit('group')"
     >
-      <button icon="lock-fill"></button> Group
+      <button>Group</button>
     </button>
     <button
       pill
@@ -30,7 +30,7 @@
       "
       @click="$emit('ungroup')"
     >
-      <button icon="unlock-fill"></button>Ungroup
+      <button>Ungroup</button>
     </button>
   </div>
 </template>
