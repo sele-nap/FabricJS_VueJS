@@ -34,7 +34,11 @@
         @ungroup="ungroup"
         class="border-l-4 border-pink-300/100"
       />
-      <ToggleMode />
+      <ButtonsDraw
+        @drawing="drawing"
+        @paw="paw"
+        class="border-l-4 border-pink-300/100"
+      />
       <ColorsPicker @update-color="changeBg($event)" ref="colorPicker" />
     </div>
   </div>
@@ -50,7 +54,7 @@ import TextBoxElement from "./components/TextBoxElement.vue";
 import ButtonsComponent from "./components/ButtonsComponent.vue";
 import ColorsPicker from "./components/ColorsPicker.vue";
 import CanvasModel from "./components/CanvasModel.vue";
-// import ToggleMode from "./components/ToggleMode.vue";
+import ButtonsDraw from "./components/ButtonsDraw.vue";
 
 export default {
   name: "App",
@@ -64,7 +68,7 @@ export default {
     ButtonsComponent,
     ColorsPicker,
     CanvasModel,
-    // ToggleMode,
+    ButtonsDraw,
   },
   data() {
     return {
