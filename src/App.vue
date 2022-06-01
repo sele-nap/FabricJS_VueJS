@@ -12,11 +12,6 @@
         :buttons="buttons"
         class="border-l-4 border-pink-300/100"
       />
-      <!-- <ToggleMode
-        @add-buttons="createButton($event)"
-        :buttons="buttons"
-        class="border-l-4 border-pink-300/100"
-      /> -->
       <PatternList
         @change-bg="changeBg($event)"
         :patternsUrl="patternsUrl"
@@ -39,6 +34,7 @@
         @ungroup="ungroup"
         class="border-l-4 border-pink-300/100"
       />
+      <ToggleMode />
       <ColorsPicker @update-color="changeBg($event)" ref="colorPicker" />
     </div>
   </div>
@@ -165,7 +161,6 @@ export default {
     this.canvasComponent = this.$refs.canvas;
     this.canvas = this.$refs.canvas._data.canvas;
     this.colorPicked = this.$refs.canvas._data.colors;
-    // this.ToggleMode = this.$ref.canvas._data.canvas;
   },
 };
 </script>
