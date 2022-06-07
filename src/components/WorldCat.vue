@@ -37,8 +37,10 @@ export default {
     setCrossPosition(x, y) {
       this.yCross = this.canvas.height - y * this.canvas.height;
       this.xCross = x * this.canvas.width;
+      console.log(this.xCross, this.yCross);
       this.getIntersects();
     },
+
     getIntersects() {
       const MARGE = 10;
       this.canvas.getObjects().forEach((object) => {
@@ -59,6 +61,7 @@ export default {
         }
       });
     },
+
     isInRect(x, y, pol, px) {
       var nb = 0;
       var force = false;

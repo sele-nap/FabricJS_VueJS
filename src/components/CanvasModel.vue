@@ -47,6 +47,7 @@ export default {
       const BACKGROUND_COLOR = "thistle";
       this.scene = new THREE.Scene();
       this.scene.background = new THREE.Color(BACKGROUND_COLOR);
+      this.container = document.getElementById("myThreeJsCanvas");
       // END : Scene and background
 
       // START: initialize renderer
@@ -57,6 +58,7 @@ export default {
       });
       this.renderer.setPixelRatio(window.devicePixelRatio);
       this.renderer.outputEncoding = THREE.sRGBEncoding;
+      this.renderer.domElement.id = "fCanvas";
       // END: Renderer
 
       // START: Raycast event
@@ -153,6 +155,7 @@ export default {
       this.canvas2.discardActiveObject();
       if (intersects.length > 0 && intersects[0].uv) {
         const uv = intersects[0].uv;
+        console.log(uv);
         this.canvasComponent2.setCrossPosition(uv.x, uv.y);
       }
     },
