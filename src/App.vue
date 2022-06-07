@@ -146,11 +146,9 @@ export default {
     },
     changeFont(event) {
       this.canvasComponent.changeFont(event);
-      console.log("meow");
     },
     changeSize(event) {
       this.canvasComponent.changeSize(event);
-      console.log("miaou");
     },
     group() {
       this.canvasComponent.group();

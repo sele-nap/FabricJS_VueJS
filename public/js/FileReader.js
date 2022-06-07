@@ -8,7 +8,6 @@ export default class FileRdr {
       fabric.Image.fromURL(
         this.filerdr.result,
         (img) => {
-          console.log(this.filerdr.result);
           const canvCenter = canvas.getCenter();
           img.left = canvCenter.left;
           (img.originX = "center"), (img.scaleX = 0.5);

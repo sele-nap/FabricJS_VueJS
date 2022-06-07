@@ -65,7 +65,6 @@ export default {
       this.pointer = new THREE.Vector2();
       this.position = new THREE.Vector2();
       this.raycaster = new THREE.Raycaster();
-
       // END: Raycast event
 
       // START: Get container
@@ -155,7 +154,6 @@ export default {
       this.canvas2.discardActiveObject();
       if (intersects.length > 0 && intersects[0].uv) {
         const uv = intersects[0].uv;
-        console.log(uv);
         this.canvasComponent2.setCrossPosition(uv.x, uv.y);
       }
     },

@@ -37,7 +37,6 @@ export default {
     setCrossPosition(x, y) {
       this.yCross = this.canvas.height - y * this.canvas.height;
       this.xCross = x * this.canvas.width;
-      console.log(this.xCross, this.yCross);
       this.getIntersects();
     },
 
@@ -89,7 +88,6 @@ export default {
         }
         prevA = a;
       });
-      console.log(nb);
       return nb % 2 === 1 || force;
     },
 
