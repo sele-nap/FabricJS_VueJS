@@ -18,10 +18,17 @@ export default {
       groundMaterial: undefined,
       groundMesh: undefined,
       canvas2: undefined,
+      raycaster: undefined,
+      position: undefined,
+      pointer: undefined,
+      container: undefined,
+      currentIntersection: null,
+      canvasComponent2: undefined,
     };
   },
   props: {
     canvas: Object,
+    canvasComponent: Object,
   },
   watch: {
     canvas: function () {
@@ -30,28 +37,44 @@ export default {
         this.groundMesh.material.map.needsUpdate = true;
       });
     },
+    canvasComponent: function () {
+      this.canvasComponent2 = this.canvasComponent;
+    },
   },
   methods: {
     init() {
-      //initialize scene and background
+      // START: initialize scene and background
       const BACKGROUND_COLOR = "thistle";
       this.scene = new THREE.Scene();
       this.scene.background = new THREE.Color(BACKGROUND_COLOR);
+      // END : Scene and background
 
-      //initialize renderer
+      // START: initialize renderer
       this.renderer = new THREE.WebGLRenderer({
-        container,
+        container: this.container,
         antialias: true,
         alpha: true,
       });
       this.renderer.setPixelRatio(window.devicePixelRatio);
       this.renderer.outputEncoding = THREE.sRGBEncoding;
+      // END: Renderer
 
-      //get container
-      const container = document.getElementById("myThreeJsCanvas");
+      // START: Raycast event
+      this.pointer = new THREE.Vector2();
+      this.position = new THREE.Vector2();
+      this.raycaster = new THREE.Raycaster();
+
+      // END: Raycast event
+
+      // START: Get container
+      this.container = document.getElementById("myThreeJsCanvas");
       this.renderer.setSize(500, 500);
       this.renderer.shadowMap.enabled = true;
-      container.appendChild(this.renderer.domElement);
+      this.container.appendChild(this.renderer.domElement);
+      // END: Get container
+
+      this.container.addEventListener("mousemove", this.onPointerMove);
+      this.container.addEventListener("mousedown", this.onClick);
 
       // START: Adding camera
       this.camera = new THREE.PerspectiveCamera(45, 1, 1, 1000);
@@ -77,7 +100,7 @@ export default {
       const hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.2);
       hemiLight.position.set(0, 50, 0);
       this.scene.add(hemiLight);
-      // END
+      // END: Adding light
 
       //Add an object
       const groundGeometry = new THREE.CylinderGeometry(5, 5, 20, 32);
@@ -89,6 +112,7 @@ export default {
         groundGeometry,
         new THREE.MeshStandardMaterial({
           map: canvasTexture,
+          //color: "#ffffff",
           metalness: 0.25,
           roughness: 0.25,
           transparent: true,
@@ -97,6 +121,51 @@ export default {
       );
       this.scene.add(this.groundMesh);
       this.animate();
+    },
+
+    onPointerMove(event) {
+      const array = this.getMousePosition(
+        this.container,
+        event.clientX,
+        event.clientY
+      );
+      this.position.fromArray(array);
+      let intersects = this.getIntersects(this.position, this.scene.children);
+      if (intersects.length > 0) {
+        this.currentIntersection = intersects[0].object;
+        this.currentIntersection.material.color.set("#D2F1FA");
+      } else {
+        if (this.currentIntersection !== null) {
+          this.currentIntersection.material.color.set(0xffffff);
+          this.currentIntersection = null;
+        }
+      }
+    },
+
+    onClick(event) {
+      const array = this.getMousePosition(
+        this.container,
+        event.clientX,
+        event.clientY
+      );
+      this.position.fromArray(array);
+      const intersects = this.getIntersects(this.position, this.scene.children);
+      this.canvas2.discardActiveObject();
+      if (intersects.length > 0 && intersects[0].uv) {
+        const uv = intersects[0].uv;
+        this.canvasComponent2.setCrossPosition(uv.x, uv.y);
+      }
+    },
+
+    getMousePosition(dom, x, y) {
+      var rect = dom.getBoundingClientRect();
+      return [(x - rect.left) / rect.width, (y - rect.top) / rect.height];
+    },
+
+    getIntersects(point, objects) {
+      this.pointer.set(point.x * 2 - 1, -(point.y * 2) + 1);
+      this.raycaster.setFromCamera(this.pointer, this.camera);
+      return this.raycaster.intersectObjects(objects);
     },
 
     // render scene

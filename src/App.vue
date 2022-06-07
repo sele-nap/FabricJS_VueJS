@@ -3,7 +3,12 @@
     <div></div>
     <div class="flex flex-col justify-center items-center space-y-4 mt-5 pl-2">
       <WorldCat ref="canvas" />
-      <CanvasModel class="mt-5" :canvas="canvas" ref="editor" />
+      <CanvasModel
+        class="mt-5"
+        :canvas="canvas"
+        :canvasComponent="canvasComponent"
+        ref="editor"
+      />
     </div>
     <div class="d-flex gap-3 mt-5">
       <ButtonsExport @export-canvas="exportCanvas()" />

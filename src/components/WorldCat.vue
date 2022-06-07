@@ -34,6 +34,62 @@ export default {
       }
     },
 
+    setCrossPosition(x, y) {
+      this.yCross = this.canvas.height - y * this.canvas.height;
+      this.xCross = x * this.canvas.width;
+      this.getIntersects();
+    },
+    getIntersects() {
+      const MARGE = 10;
+      this.canvas.getObjects().forEach((object) => {
+        if (
+          this.isInRect(
+            this.xCross,
+            this.yCross,
+            [
+              object.aCoords.tl,
+              object.aCoords.tr,
+              object.aCoords.br,
+              object.aCoords.bl,
+            ],
+            MARGE
+          )
+        ) {
+          this.canvas.setActiveObject(object);
+        }
+      });
+    },
+    isInRect(x, y, pol, px) {
+      var nb = 0;
+      var force = false;
+      var prevA = pol[pol.length - 1];
+      pol.forEach((a) => {
+        var alpha = (a.y - prevA.y) / (a.x - prevA.x);
+        if (alpha !== 0 && alpha) {
+          var xCalc =
+            Math.abs(alpha) === Infinity
+              ? a.x
+              : (y - prevA.y + alpha * prevA.x) / alpha;
+          if (xCalc >= x) {
+            if ((prevA.y > y && a.y <= y) || (prevA.y < y && a.y >= y)) {
+              nb += 1;
+            }
+          }
+          if (Math.abs(xCalc - x) < px || Math.abs(a.y - y) < px) {
+            if (
+              (prevA.y + px > y && a.y - px < y) ||
+              (prevA.y - px < y && a.y + px > y)
+            ) {
+              force = true;
+            }
+          }
+        }
+        prevA = a;
+      });
+      console.log(nb);
+      return nb % 2 === 1 || force;
+    },
+
     createCir(canvas) {
       const canvCenter = canvas.getCenter();
       const circle = new fabric.Circle({
@@ -59,7 +115,7 @@ export default {
         },
       });
       circle.on("selected", () => {
-        circle.set("fill", "LightGoldenRodYellow");
+        circle.set("fill", "LimeGreen");
         canvas.requestRenderAll();
       });
       circle.on("deselected", () => {
