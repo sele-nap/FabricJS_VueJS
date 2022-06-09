@@ -24,6 +24,7 @@ export default {
       container: undefined,
       currentIntersection: null,
       canvasComponent2: undefined,
+      fcanvas: undefined,
     };
   },
   props: {
@@ -58,7 +59,7 @@ export default {
       });
       this.renderer.setPixelRatio(window.devicePixelRatio);
       this.renderer.outputEncoding = THREE.sRGBEncoding;
-      this.renderer.domElement.id = "fCanvas";
+      this.renderer.domElement.id = "canvas2";
       // END: Renderer
 
       // START: Raycast event
@@ -73,9 +74,6 @@ export default {
       this.renderer.shadowMap.enabled = true;
       this.container.appendChild(this.renderer.domElement);
       // END: Get container
-
-      this.container.addEventListener("mousemove", this.onPointerMove);
-      this.container.addEventListener("mousedown", this.onClick);
 
       // START: Adding camera
       this.camera = new THREE.PerspectiveCamera(45, 1, 1, 1000);
@@ -113,7 +111,6 @@ export default {
         groundGeometry,
         new THREE.MeshStandardMaterial({
           map: canvasTexture,
-          //color: "#ffffff",
           metalness: 0.25,
           roughness: 0.25,
           transparent: true,
@@ -122,30 +119,15 @@ export default {
       );
       this.scene.add(this.groundMesh);
       this.animate();
+      this.fcanvas = document.getElementById("canvas2");
+      console.log(this.fcanvas);
+      this.fcanvas.addEventListener("mousemove", this.onMouseMove);
+      this.fcanvas.addEventListener("mousedown", this.onClick);
+      this.fcanvas.addEventListener("mouseup", this.onMouseUp);
     },
-
-    onPointerMove(event) {
-      const array = this.getMousePosition(
-        this.container,
-        event.clientX,
-        event.clientY
-      );
-      this.position.fromArray(array);
-      let intersects = this.getIntersects(this.position, this.scene.children);
-      if (intersects.length > 0) {
-        this.currentIntersection = intersects[0].object;
-        this.currentIntersection.material.color.set("#D2F1FA");
-      } else {
-        if (this.currentIntersection !== null) {
-          this.currentIntersection.material.color.set(0xffffff);
-          this.currentIntersection = null;
-        }
-      }
-    },
-
     onClick(event) {
       const array = this.getMousePosition(
-        this.container,
+        this.fcanvas,
         event.clientX,
         event.clientY
       );
@@ -155,14 +137,53 @@ export default {
       if (intersects.length > 0 && intersects[0].uv) {
         const uv = intersects[0].uv;
         this.canvasComponent2.setCrossPosition(uv.x, uv.y);
+        this.saveX = event.clientX;
+        this.saveY = event.clientY;
+        if (this.canvasComponent2.clickedObject) {
+          this.controls.enableRotate = false;
+        }
+      } else {
+        this.controls.enableRotate = true;
+        this.controls.update();
       }
     },
-
+    onMouseUp() {
+      this.canvasComponent2.clickedObject = null;
+      this.controls.enableRotate = true;
+      this.controls.update();
+      this.canvas2.fire("object:modified");
+      document.body.style.cursor = "default";
+    },
+    onMouseMove(event) {
+      event.preventDefault();
+      if (
+        this.canvasComponent2.clickedObject &&
+        (event.buttons === 1 || event.touches) &&
+        this.canvasComponent2.clickedObject.selectable &&
+        this.canvasComponent2.clickedObject.evented
+      ) {
+        const coef = 30;
+        let clientX = event.clientX;
+        let clientY = event.clientY;
+        const dist = Math.sqrt(
+          Math.pow(Math.abs(this.camera.position.x), 2) +
+            Math.pow(Math.abs(this.camera.position.y), 2) +
+            Math.pow(Math.abs(this.camera.position.z), 2)
+        );
+        document.body.style.cursor = "move";
+        this.canvasComponent2.clickedObject.left +=
+          ((clientX - this.saveX) * dist) / coef;
+        this.canvasComponent2.clickedObject.top +=
+          ((clientY - this.saveY) * dist) / coef;
+        this.canvas2.renderAll();
+        this.saveX = clientX;
+        this.saveY = clientY;
+      }
+    },
     getMousePosition(dom, x, y) {
       var rect = dom.getBoundingClientRect();
       return [(x - rect.left) / rect.width, (y - rect.top) / rect.height];
     },
-
     getIntersects(point, objects) {
       this.pointer.set(point.x * 2 - 1, -(point.y * 2) + 1);
       this.raycaster.setFromCamera(this.pointer, this.camera);

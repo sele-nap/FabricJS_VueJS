@@ -10,7 +10,11 @@ import { saveAs } from "file-saver";
 export default {
   name: "WorldCat",
   data() {
-    return { canvasId: "mycanvas", canvas: undefined };
+    return {
+      canvasId: "mycanvas",
+      canvas: undefined,
+      clickedObject: undefined,
+    };
   },
 
   methods: {
@@ -56,6 +60,7 @@ export default {
             MARGE
           )
         ) {
+          this.clickedObject = object;
           this.canvas.setActiveObject(object);
         }
       });
