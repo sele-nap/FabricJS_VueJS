@@ -120,7 +120,6 @@ export default {
       this.scene.add(this.groundMesh);
       this.animate();
       this.fcanvas = document.getElementById("canvas2");
-      console.log(this.fcanvas);
       this.fcanvas.addEventListener("mousemove", this.onMouseMove);
       this.fcanvas.addEventListener("mousedown", this.onClick);
       this.fcanvas.addEventListener("mouseup", this.onMouseUp);
