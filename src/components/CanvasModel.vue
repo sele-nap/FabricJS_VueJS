@@ -169,11 +169,11 @@ export default {
             Math.pow(Math.abs(this.camera.position.y), 2) +
             Math.pow(Math.abs(this.camera.position.z), 2)
         );
-        if (this.canvas.scalingPoint) {
+        if (this.fcanvas.scalingPoint) {
           let scaleX = this.canvas.clickedObject.scaleX / this.savedScaleX;
           let scaleY = this.canvas.clickedObject.scaleY / this.savedScaleY;
 
-          switch (this.canvas.scalingPoint) {
+          switch (this.fcanvas.scalingPoint) {
             case "tl":
             case "br":
               document.body.style.cursor = "nwse-resize";
@@ -212,6 +212,7 @@ export default {
                   Math.PI +
                   180) %
                 360;
+              console.log(angle);
               for (var i = 0; i < 380; i += 45) {
                 if (Math.abs(angle - i) < 5) {
                   angle = i;
@@ -220,6 +221,7 @@ export default {
               this.fcanvas.clickedObject.angle = angle;
               break;
           }
+
           this.fcanvas.clickedObject.scaleX = this.savedScaleX * scaleX;
           this.fcanvas.clickedObject.scaleY = this.savedScaleY * scaleY;
         } else {
@@ -232,6 +234,8 @@ export default {
           this.saveX = clientX;
           this.saveY = clientY;
         }
+
+        console.log(this.fcanvas.scalingPoint);
       }
     },
     getMousePosition(dom, x, y) {
