@@ -131,6 +131,7 @@ export default {
         event.clientY
       );
       this.position.fromArray(array);
+
       const intersects = this.getIntersects(this.position, this.scene.children);
       this.canvas2.discardActiveObject();
       if (intersects.length > 0 && intersects[0].uv) {
@@ -140,6 +141,14 @@ export default {
         this.saveY = event.clientY;
         if (this.canvasComponent2.clickedObject) {
           this.controls.enableRotate = false;
+          this.centerX =
+            (event.clientX * this.canvasComponent2.clickedObject.left) /
+            this.canvasComponent2.xCross;
+          this.centerY =
+            (event.clientY * this.canvasComponent2.clickedObject.top) /
+            this.canvasComponent2.yCross;
+          this.savedScaleX = this.canvasComponent2.clickedObject.scaleX;
+          this.savedScaleY = this.canvasComponent2.clickedObject.scaleY;
         }
       } else {
         this.controls.enableRotate = true;
@@ -150,7 +159,6 @@ export default {
       this.canvasComponent2.clickedObject = null;
       this.controls.enableRotate = true;
       this.controls.update();
-      this.canvas2.fire("object:modified");
       document.body.style.cursor = "default";
     },
     onMouseMove(event) {
@@ -169,14 +177,58 @@ export default {
             Math.pow(Math.abs(this.camera.position.y), 2) +
             Math.pow(Math.abs(this.camera.position.z), 2)
         );
-        document.body.style.cursor = "move";
-        this.canvasComponent2.clickedObject.left +=
-          ((clientX - this.saveX) * dist) / coef;
-        this.canvasComponent2.clickedObject.top +=
-          ((clientY - this.saveY) * dist) / coef;
-        this.canvas2.renderAll();
-        this.saveX = clientX;
-        this.saveY = clientY;
+        if (this.canvasComponent2.scalingPoint) {
+          var scaleX =
+            this.canvasComponent2.clickedObject.scaleX / this.savedScaleX;
+          var scaleY =
+            this.canvasComponent2.clickedObject.scaleY / this.savedScaleY;
+          switch (this.canvasComponent2.scalingPoint) {
+            case "tl":
+            case "br":
+              scaleX = (clientX - this.centerX) / (this.saveX - this.centerX);
+              scaleY = (clientY - this.centerY) / (this.saveY - this.centerY);
+              document.body.style.cursor = "nwse-resize";
+              if (scaleX < scaleY) {
+                scaleY = scaleX;
+              }
+              scaleX = scaleY;
+              break;
+            case "tr":
+            case "bl":
+              scaleX = (clientX - this.centerX) / (this.saveX - this.centerX);
+              scaleY = (clientY - this.centerY) / (this.saveY - this.centerY);
+              document.body.style.cursor = "nesw-resize";
+              if (scaleX < scaleY) {
+                scaleY = scaleX;
+              }
+              scaleX = scaleY;
+              break;
+            case "ml":
+            case "mr":
+              scaleX = (clientX - this.centerX) / (this.saveX - this.centerX);
+              document.body.style.cursor = "ew-resize";
+              break;
+            case "mt":
+            case "mb":
+              scaleY = (clientY - this.centerY) / (this.saveY - this.centerY);
+              document.body.style.cursor = "ns-resize";
+              break;
+          }
+          this.canvasComponent2.clickedObject.scaleX =
+            this.savedScaleX * scaleX;
+          this.canvasComponent2.clickedObject.scaleY =
+            this.savedScaleY * scaleY;
+          this.canvas2.renderAll();
+        } else {
+          document.body.style.cursor = "move";
+          this.canvasComponent2.clickedObject.left +=
+            ((clientX - this.saveX) * dist) / coef;
+          this.canvasComponent2.clickedObject.top +=
+            ((clientY - this.saveY) * dist) / coef;
+          this.canvas2.renderAll();
+          this.saveX = clientX;
+          this.saveY = clientY;
+        }
       }
     },
     getMousePosition(dom, x, y) {

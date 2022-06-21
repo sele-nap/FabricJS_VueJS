@@ -43,7 +43,6 @@ export default {
       this.xCross = x * this.canvas.width;
       this.getIntersects();
     },
-
     getIntersects() {
       const MARGE = 10;
       this.canvas.getObjects().forEach((object) => {
@@ -64,14 +63,13 @@ export default {
         }
       });
     },
-
-    selectObj(obj) {
-      this.clickedObject = obj;
-      let angle = ["tl", "tr", "br", "bl", "ml", "mt", "mr", "mb"];
+    selectObj(object) {
+      this.clickedObject = object;
+      const angles = ["tl", "tr", "br", "bl", "ml", "mt", "mr", "mb"];
       let corner;
       this.scalingPoint = null;
-      angle.forEach((a) => {
-        corner = obj.oCoords[a].corner;
+      angles.forEach((angle) => {
+        corner = object.oCoords[angle].corner;
         if (
           this.isInRect(
             this.xCross,
@@ -86,23 +84,21 @@ export default {
           ) &&
           !this.scalingPoint
         ) {
-          this.scalingPoint = a;
-          this.scaleX = obj.scaleX;
-          this.scaleY = obj.scaleY;
-          console.log(this.scalingPoint);
+          this.scalingPoint = angle;
+          this.scaleX = object.scaleX;
+          this.scaleY = object.scaleY;
         }
       });
-      this.canvas2.setActiveObject(obj);
+      this.canvas.setActiveObject(object);
     },
-
     isInRect(x, y, pol, px) {
-      let nb = 0;
-      let force = false;
-      let prevA = pol[pol.length - 1];
+      var nb = 0;
+      var force = false;
+      var prevA = pol[pol.length - 1];
       pol.forEach((a) => {
-        let alpha = (a.y - prevA.y) / (a.x - prevA.x);
+        var alpha = (a.y - prevA.y) / (a.x - prevA.x);
         if (alpha !== 0 && alpha) {
-          let xCalc =
+          var xCalc =
             Math.abs(alpha) === Infinity
               ? a.x
               : (y - prevA.y + alpha * prevA.x) / alpha;
