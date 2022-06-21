@@ -67,8 +67,8 @@ export default {
 
     selectObj(obj) {
       this.clickedObject = obj;
-      var angle = ["tl", "tr", "br", "bl", "ml", "mt", "mr", "mb"];
-      var corner;
+      let angle = ["tl", "tr", "br", "bl", "ml", "mt", "mr", "mb"];
+      let corner;
       this.scalingPoint = null;
       angle.forEach((a) => {
         corner = obj.oCoords[a].corner;
@@ -96,13 +96,13 @@ export default {
     },
 
     isInRect(x, y, pol, px) {
-      var nb = 0;
-      var force = false;
-      var prevA = pol[pol.length - 1];
+      let nb = 0;
+      let force = false;
+      let prevA = pol[pol.length - 1];
       pol.forEach((a) => {
-        var alpha = (a.y - prevA.y) / (a.x - prevA.x);
+        let alpha = (a.y - prevA.y) / (a.x - prevA.x);
         if (alpha !== 0 && alpha) {
-          var xCalc =
+          let xCalc =
             Math.abs(alpha) === Infinity
               ? a.x
               : (y - prevA.y + alpha * prevA.x) / alpha;
