@@ -178,9 +178,9 @@ export default {
             Math.pow(Math.abs(this.camera.position.z), 2)
         );
         if (this.canvasComponent2.scalingPoint) {
-          var scaleX =
+          let scaleX =
             this.canvasComponent2.clickedObject.scaleX / this.savedScaleX;
-          var scaleY =
+          let scaleY =
             this.canvasComponent2.clickedObject.scaleY / this.savedScaleY;
           switch (this.canvasComponent2.scalingPoint) {
             case "tl":
@@ -232,7 +232,7 @@ export default {
       }
     },
     getMousePosition(dom, x, y) {
-      var rect = dom.getBoundingClientRect();
+      let rect = dom.getBoundingClientRect();
       return [(x - rect.left) / rect.width, (y - rect.top) / rect.height];
     },
     getIntersects(point, objects) {
