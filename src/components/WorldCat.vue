@@ -60,10 +60,39 @@ export default {
             MARGE
           )
         ) {
-          this.clickedObject = object;
-          this.canvas.setActiveObject(object);
+          this.selectObj(object);
         }
       });
+    },
+
+    selectObj(obj) {
+      this.clickedObject = obj;
+      var angle = ["tl", "tr", "br", "bl", "ml", "mt", "mr", "mb"];
+      var corner;
+      this.scalingPoint = null;
+      angle.forEach((a) => {
+        corner = obj.oCoords[a].corner;
+        if (
+          this.isInRect(
+            this.xCross,
+            this.yCross,
+            [
+              { x: corner.tl.x, y: corner.tl.y },
+              { x: corner.tr.x, y: corner.tr.y },
+              { x: corner.br.x, y: corner.br.y },
+              { x: corner.bl.x, y: corner.bl.y },
+            ],
+            0
+          ) &&
+          !this.scalingPoint
+        ) {
+          this.scalingPoint = a;
+          this.scaleX = obj.scaleX;
+          this.scaleY = obj.scaleY;
+          console.log(this.scalingPoint);
+        }
+      });
+      this.canvas2.setActiveObject(obj);
     },
 
     isInRect(x, y, pol, px) {

@@ -169,73 +169,14 @@ export default {
             Math.pow(Math.abs(this.camera.position.y), 2) +
             Math.pow(Math.abs(this.camera.position.z), 2)
         );
-        if (this.fcanvas.scalingPoint) {
-          let scaleX = this.canvas.clickedObject.scaleX / this.savedScaleX;
-          let scaleY = this.canvas.clickedObject.scaleY / this.savedScaleY;
-
-          switch (this.fcanvas.scalingPoint) {
-            case "tl":
-            case "br":
-              document.body.style.cursor = "nwse-resize";
-              scaleX = (clientX - this.centerX) / (this.saveX - this.centerX);
-              scaleY = (clientY - this.centerY) / (this.saveY - this.centerY);
-              if (scaleX < scaleY) {
-                scaleY = scaleX;
-              }
-              scaleX = scaleY;
-              break;
-            case "tr":
-            case "bl":
-              document.body.style.cursor = "nesw-resize";
-              scaleX = (clientX - this.centerX) / (this.saveX - this.centerX);
-              scaleY = (clientY - this.centerY) / (this.saveY - this.centerY);
-              if (scaleX < scaleY) {
-                scaleY = scaleX;
-              }
-              scaleX = scaleY;
-              break;
-            case "ml":
-            case "mr":
-              document.body.style.cursor = "ew-resize";
-              scaleX = (clientX - this.centerX) / (this.saveX - this.centerX);
-              break;
-            case "mt":
-            case "mb":
-              document.body.style.cursor = "ns-resize";
-              scaleY = (clientY - this.centerY) / (this.saveY - this.centerY);
-              break;
-            case "mtr":
-              document.body.style.cursor = "grabbing";
-              var angle =
-                ((Math.atan2(clientX - this.centerX, clientY - this.centerY) *
-                  -180) /
-                  Math.PI +
-                  180) %
-                360;
-              console.log(angle);
-              for (var i = 0; i < 380; i += 45) {
-                if (Math.abs(angle - i) < 5) {
-                  angle = i;
-                }
-              }
-              this.fcanvas.clickedObject.angle = angle;
-              break;
-          }
-
-          this.fcanvas.clickedObject.scaleX = this.savedScaleX * scaleX;
-          this.fcanvas.clickedObject.scaleY = this.savedScaleY * scaleY;
-        } else {
-          document.body.style.cursor = "move";
-          this.canvasComponent2.clickedObject.left +=
-            ((clientX - this.saveX) * dist) / coef;
-          this.canvasComponent2.clickedObject.top +=
-            ((clientY - this.saveY) * dist) / coef;
-          this.canvas2.renderAll();
-          this.saveX = clientX;
-          this.saveY = clientY;
-        }
-
-        console.log(this.fcanvas.scalingPoint);
+        document.body.style.cursor = "move";
+        this.canvasComponent2.clickedObject.left +=
+          ((clientX - this.saveX) * dist) / coef;
+        this.canvasComponent2.clickedObject.top +=
+          ((clientY - this.saveY) * dist) / coef;
+        this.canvas2.renderAll();
+        this.saveX = clientX;
+        this.saveY = clientY;
       }
     },
     getMousePosition(dom, x, y) {
