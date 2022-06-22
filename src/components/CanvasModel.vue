@@ -149,6 +149,51 @@ export default {
             this.canvasComponent2.yCross;
           this.savedScaleX = this.canvasComponent2.clickedObject.scaleX;
           this.savedScaleY = this.canvasComponent2.clickedObject.scaleY;
+
+          let modX =
+            20 *
+            Math.sin(
+              ((this.canvasComponent2.clickedObject.angle - 180) * Math.PI) /
+                -180
+            );
+          let modY =
+            20 *
+            Math.cos(
+              ((this.canvasComponent2.clickedObject.angle - 180) * Math.PI) /
+                -180
+            );
+          var corneto = JSON.parse(
+            JSON.stringify(
+              this.canvasComponent2.clickedObject.oCoords.mt.corner
+            )
+          );
+          console.log(
+            JSON.stringify(
+              this.canvasComponent2.clickedObject.oCoords.mt.corner
+            )
+          );
+          console.log("corner", corneto);
+          console.log(modX);
+          console.log(modY);
+          corneto.tl.x += modX;
+          corneto.tl.y += modY;
+          corneto.tr.x += modX;
+          corneto.tr.y += modY;
+          corneto.br.x += modX;
+          corneto.br.y += modY;
+          corneto.bl.x += modX;
+          corneto.bl.y += modY;
+
+          console.log(
+            "object",
+            this.canvasComponent2.clickedObject.oCoords.mt.corner,
+            "position x",
+            this.canvasComponent2.clickedObject.oCoords.mt.x,
+            "position y",
+            this.canvasComponent2.clickedObject.oCoords.mt.y
+          );
+          console.log("corner after", corneto);
+          this.canvasComponent2.clickedObject.angle += 10;
         }
       } else {
         this.controls.enableRotate = true;
@@ -212,6 +257,21 @@ export default {
             case "mb":
               scaleY = (clientY - this.centerY) / (this.saveY - this.centerY);
               document.body.style.cursor = "ns-resize";
+              break;
+            case "mtr":
+              document.body.style.cursor = "grabbing";
+              var angle =
+                ((Math.atan2(clientX - this.centerX, clientY - this.centerY) *
+                  -180) /
+                  Math.PI +
+                  180) %
+                360;
+              for (var i = 0; i < 380; i += 45) {
+                if (Math.abs(angle - i) < 5) {
+                  angle = i;
+                }
+              }
+              this.canvasComponent2.clickedObject.angle = angle;
               break;
           }
           this.canvasComponent2.clickedObject.scaleX =
