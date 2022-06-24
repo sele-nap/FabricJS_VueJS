@@ -6,6 +6,7 @@
 <script>
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
 
 export default {
   name: "CanvasModel",
@@ -16,7 +17,7 @@ export default {
       renderer: undefined,
       controls: undefined,
       groundMaterial: undefined,
-      groundMesh: undefined,
+      object: undefined,
       canvas2: undefined,
       raycaster: undefined,
       position: undefined,
@@ -35,7 +36,7 @@ export default {
     canvas: function () {
       this.canvas2 = this.canvas;
       this.canvas2.on("after:render", () => {
-        this.groundMesh.material.map.needsUpdate = true;
+        this.object.children[0].material.map.needsUpdate = true;
       });
     },
     canvasComponent: function () {
@@ -102,22 +103,44 @@ export default {
       // END: Adding light
 
       //Add an object
-      const groundGeometry = new THREE.CylinderGeometry(5, 5, 20, 32);
+      // const groundGeometry = new THREE.CylinderGeometry(5, 5, 20, 32);
 
       //Create Canvas Texture
       const fabricCanvas = document.getElementById("mycanvas");
-      const canvasTexture = new THREE.Texture(fabricCanvas);
-      this.groundMesh = new THREE.Mesh(
-        groundGeometry,
-        new THREE.MeshStandardMaterial({
-          map: canvasTexture,
-          metalness: 0.25,
-          roughness: 0.25,
-          transparent: true,
-          side: THREE.DoubleSide,
-        })
-      );
-      this.scene.add(this.groundMesh);
+      const canvasTexture = new THREE.CanvasTexture(fabricCanvas);
+      this.loader = new OBJLoader();
+      this.material = new THREE.MeshPhysicalMaterial({
+        color: 16777215,
+        roughness: 0.07,
+        emissive: 0,
+        clearcoat: 0.27,
+        clearcoatRoughness: 0.06,
+        refractionRatio: 0.98,
+        opacity: 0.99,
+        transparent: true,
+        transmission: 1,
+        map: canvasTexture,
+      });
+      this.loader.load("/Cabernet.obj", (obj) => {
+        this.object = obj;
+        this.object.scale.set(0.1, 0.1, 0.1);
+        this.object.position.set(0, -10, 0);
+        this.object.children[0].material = this.material;
+        console.log(JSON.stringify(obj.children[0].material));
+        this.scene.add(this.object);
+      });
+      // const canvasTexture = new THREE.Texture(fabricCanvas);
+      // this.groundMesh = new THREE.Mesh(
+      //   groundGeometry,
+      //   new THREE.MeshStandardMaterial({
+      //     map: canvasTexture,
+      //     metalness: 0.25,
+      //     roughness: 0.25,
+      //     transparent: true,
+      //     side: THREE.DoubleSide,
+      //   })
+      // );
+      // this.scene.add(this.groundMesh);
       this.animate();
       this.fcanvas = document.getElementById("canvas2");
       this.fcanvas.addEventListener("mousemove", this.onMouseMove);
@@ -162,7 +185,7 @@ export default {
               ((this.canvasComponent2.clickedObject.angle - 180) * Math.PI) /
                 -180
             );
-          var corneto = JSON.parse(
+          let corneto = JSON.parse(
             JSON.stringify(
               this.canvasComponent2.clickedObject.oCoords.mt.corner
             )
